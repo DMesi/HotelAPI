@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace HotelAPI
 {
     public class Program
-    { //test iz git
+    { 
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()

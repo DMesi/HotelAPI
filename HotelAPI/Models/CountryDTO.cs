@@ -10,7 +10,7 @@ namespace HotelAPI.Models
     {
         public int Id { get; set; }
 
-        public virtual IList<HotelDTO> Hotels { get; set; }
+        public IList<HotelDTO> Hotels { get; set; }
     }
 
     public class CreateCountryDTO
@@ -24,4 +24,11 @@ namespace HotelAPI.Models
         [StringLength(maximumLength: 2, ErrorMessage = "Too long")]
         public string ShortName { get; set; }
     }
+
+    public class UpdateCountryDTO : CreateCountryDTO
+    {
+        public IList<CreateHotelDTO> Hotels { get; set; }
+    }
+
 }
+ 
