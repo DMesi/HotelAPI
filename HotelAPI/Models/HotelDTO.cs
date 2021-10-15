@@ -21,6 +21,7 @@ namespace HotelAPI.Models
         [StringLength(maximumLength: 150, ErrorMessage = "Too long")]
 
         public string Name { get; set; }
+         
         [Required]
         [StringLength(maximumLength: 250, ErrorMessage = "Too long")]
 

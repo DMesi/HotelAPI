@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using HotelAPI.Configurations;
 using HotelAPI.Data;
 using HotelAPI.IRepository;
@@ -40,7 +41,17 @@ namespace HotelAPI
             
             );
 
-     
+          
+
+       // services.AddResponseCaching(); 
+
+            services.AddMemoryCache(); 
+
+            services.ConfigureRateLimiting();
+            services.AddHttpContextAccessor();
+
+            services.ConfigureHttpCacheHeaders();
+
 
             services.AddAuthentication();
             services.ConfigureIdentity();
@@ -75,11 +86,20 @@ namespace HotelAPI
             });
 
 
-            services.AddControllers().AddNewtonsoftJson(op =>
+            services.AddControllers(config => {
+                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile
+                {
+
+                    Duration = 120
+
+                });
+            
+            }).AddNewtonsoftJson(op =>
 
             op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
 
+            services.ConfigureVersioning();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,12 +112,20 @@ namespace HotelAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HotelAPI v1"));
             }
 
+            app.ConfigureExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseCors("DozvoliSveCORS"); // dozvola, definisana gore
 
-            app.UseRouting();
+            app.UseResponseCaching();
+            app.UseHttpCacheHeaders();
 
+
+        //   app.UseIpRateLimiting();
+
+            app.UseRouting();
+            
             app.UseAuthentication();
 
             app.UseAuthorization();

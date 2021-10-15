@@ -66,7 +66,7 @@ namespace HotelAPI.Controllers
 
         }
 
-        [Authorize(Roles ="Administrator ")]
+      
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -100,7 +100,7 @@ namespace HotelAPI.Controllers
         }
 
 
-        [Authorize]
+       
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -145,7 +145,7 @@ namespace HotelAPI.Controllers
         }
 
 
-        [Authorize]
+      
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -161,7 +161,7 @@ namespace HotelAPI.Controllers
 
             }
             try
-            {
+            { 
                 var hotel = await _unitOfWork.Hotels.Get(q => q.Id == id);
                 if (hotel == null)
                 {
